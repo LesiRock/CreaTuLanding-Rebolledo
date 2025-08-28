@@ -8,7 +8,9 @@ const NavBar = () => {
             <a className='anchor-nav'>Nosotros</a>
             <a className='anchor-nav'>Proyecto</a>
             <a className='anchor-nav'>Contacto</a>
-            <a className='anchor-nav'>Mercancia<CartWidget/></a>
+            <div className='cart'>
+                <a className='anchor-nav'>Mercancia  <CartWidget/></a>
+            </div>
         </nav>
     )
 }
