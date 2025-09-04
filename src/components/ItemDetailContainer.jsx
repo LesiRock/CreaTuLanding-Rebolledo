@@ -5,15 +5,14 @@ import { useParams } from 'react-router-dom'
 
 const ItemDetailContainer =()=>{
     const [detalle, setDetalle] = useState({})
-    const params = useParams()
+    const {id} = useParams()
 
     useEffect(()=>{
-        getItem('01')
-        .then((res)=> setDetalle (res))
+        getItem(id)
+        .then((res)=> setDetalle(res))
         .catch((error)=> console.log(error))
-    },[])
+    },[id])
 
-    console.log(params, 'params')
     return (
         <div><ItemDetail detalle={detalle}/></div>
     )

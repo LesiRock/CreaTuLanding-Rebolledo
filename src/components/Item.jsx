@@ -11,8 +11,7 @@ function Item({prod}) {
             <Card.Text>
                 ${prod.price}
             </Card.Text>
-            <Button variant="primary">Ver más</Button>
-            <Link className='btn btn-primary' to={'/item/'+prod.id}>Ver más</Link>
+            <Link to={'/item/'+prod.id}>Ver más</Link>
         </Card.Body>
     </Card>
     );
