@@ -1,21 +1,36 @@
-import React, {useEffect, useState} from 'react'
-import ItemDetail from './ItemDetail'
-import { getItem } from '../mock/AsyncMock'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from "react"
+import { getItem  } from "../mock/AsyncMock"
+import ItemList from "./ItemList"
+import { useParams } from "react-router-dom"
+import LoaderComponent from "./LoaderComponent"
+import ItemDetail from "./ItemDetail"
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../service/firebase'
 
-const ItemDetailContainer =()=>{
-    const [detalle, setDetalle] = useState({})
-    const {id} = useParams()
+const ItemDetailContainer = ()=> {
+    const [detalle, setDetalle]=useState({})
+    const [cargando, setCargando] = useState(false)
+    const {id}=useParams()
 
     useEffect(()=>{
-        getItem(id)
-        .then((res)=> setDetalle(res))
-        .catch((error)=> console.log(error))
-    },[id])
+        setCargando(true)
+        const docRef = doc(db, "ideo", id)
+        getDoc(docRef)
+        .then((res)=>setDetalle({id:res.id, ...res.data()}))
+        .catch((error)=>console.log(error))
+        .finally(() =>setCargando(false))
+        },[id])
 
-    return (
-        <div><ItemDetail detalle={detalle}/></div>
+
+    return(
+        <>
+        {
+            cargando
+            ? <LoaderComponent/>
+            : <ItemDetail detalle={detalle}/>
+        }
+        </>
     )
 }
 
-export default ItemDetailContainer
+export default ItemDetailContainer;

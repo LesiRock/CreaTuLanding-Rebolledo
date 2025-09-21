@@ -2,28 +2,45 @@ import { useEffect, useState } from "react"
 import { getProductos } from "../mock/AsyncMock"
 import ItemList from "./ItemList"
 import { useParams } from "react-router-dom"
+import LoaderComponent from "./LoaderComponent"
+import { collection, getDocs, query, where } from "firebase/firestore"
+import { db } from "../service/firebase";
 
 const ItemListContainer = ({mensaje})=> {
     const [data, setData]=useState([])
+    const [loader, setLoader] = useState(false)
     const {category}=useParams()
-    useEffect(()=>{
-        getProductos()
-        .then((res)=>{
-            if(category){
-                setData(res.filter((item)=> item.category === category));
-            }else{
-                setData(res)
-            }
-        })
-        .catch((error)=> console.error(error))
-    },[category])
+    console.log("Categoría recibida:", category);
 
-    console.log(category)
+useEffect (()=>{
+    setLoader(true)
+    const productsCollection = category
+    ? query(collection(db, "ideo"), where("category", "==", category))
+    : collection(db, "ideo");
+    getDocs(productsCollection)
+    .then((res)=>{
+        console.log("Cantidad de documentos encontrados:", res.docs.length)
+        const list = res.docs.map((doc)=>({
+                id: doc.id,
+                ...doc.data(),
+        }))
+        console.log("Documentos recibidos:", list);
+        setData(list)
+    })
+    .catch((error)=> console.error(error))
+    .finally(()=> setLoader(false))
+},[category]);
+
     return(
-        <div>
-            <h1>{mensaje}</h1>
+        <>
+        {loader
+        ? <LoaderComponent/>
+        : <div>
+            <h1>{mensaje} {category && <span style={{textTransform:'capitalize'}}></span>}</h1>
             <ItemList data={data}/>
         </div>
+        }
+        </>
     )
 }
 

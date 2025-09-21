@@ -14,7 +14,7 @@ const ErrorComponent = () => {
             alt="error"
             style={{ width:'70%', marginBottom: 15}}
             />
-            <Link style={{ backgroundColor: '#094045' }} to="/">Volver al Home</Link>
+            <Link style={{ backgroundColor: '#094045', color: 'white', padding:'1rem' }} to="/">Volver al Home</Link>
         </div>
     )
 }
