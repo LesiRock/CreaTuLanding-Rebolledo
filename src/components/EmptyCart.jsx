@@ -7,7 +7,7 @@ const EmptyCart = () => {
             <h2>Tu carrito esta vacio</h2>
             <h3>Checa la mercancía que tenemos para ti</h3>
             <br/>
-            <Link style={{backgroundColor: '#094045', color: 'white', padding:'1rem', textDecoration:'none' }}>Volver a Home</Link>
+            <Link style={{backgroundColor: '#094045', color: 'white', padding:'1rem', textDecoration:'none' }} to='/'>Volver a Home</Link>
         </div>
     )
 }

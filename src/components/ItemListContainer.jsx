@@ -3,8 +3,9 @@ import { getProductos } from "../mock/AsyncMock"
 import ItemList from "./ItemList"
 import { useParams } from "react-router-dom"
 import LoaderComponent from "./LoaderComponent"
-import { collection, getDocs, query, where } from "firebase/firestore"
+import { collection, getDocs, query, where, addDoc } from "firebase/firestore"
 import { db } from "../service/firebase";
+
 
 const ItemListContainer = ({mensaje})=> {
     const [data, setData]=useState([])
@@ -15,8 +16,8 @@ const ItemListContainer = ({mensaje})=> {
 useEffect (()=>{
     setLoader(true)
     const productsCollection = category
-    ? query(collection(db, "ideo"), where("category", "==", category))
-    : collection(db, "ideo");
+    ? query(collection(db, "productos"), where("category", "==", category))
+    : collection(db, "productos");
     getDocs(productsCollection)
     .then((res)=>{
         console.log("Cantidad de documentos encontrados:", res.docs.length)

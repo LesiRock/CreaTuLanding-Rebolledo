@@ -10,9 +10,9 @@ const NavBar = () => {
             <NavLink to='/'>
                 <img alt='logo' src='../escudo.png'className='logo'/>
             </NavLink>
-            <a className='anchor-nav'>Nosotros</a>
+            {/*<a className='anchor-nav'>Nosotros</a>
             <a className='anchor-nav'>Proyecto</a>
-            <a className='anchor-nav'>Contacto</a>
+            <a className='anchor-nav'>Contacto</a>*/}
             <div className="dropdown">
                 <a className="anchor-nav dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Mercancia</a>
                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
@@ -22,7 +22,7 @@ const NavBar = () => {
                     <NavLink to='/category/gorra'className="dropdown-item" href="#">Gorras</NavLink>
                 </ul>
             </div>
-            <a className='anchor-nav'><CartWidget /></a>
+            <NavLink className='anchor-nav' to='/cart'><CartWidget /></NavLink>
         </nav>
     )
 }

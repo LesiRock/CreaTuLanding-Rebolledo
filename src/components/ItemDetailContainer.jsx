@@ -14,7 +14,7 @@ const ItemDetailContainer = ()=> {
 
     useEffect(()=>{
         setCargando(true)
-        const docRef = doc(db, "ideo", id)
+        const docRef = doc(db, "productos", id)
         getDoc(docRef)
         .then((res)=>setDetalle({id:res.id, ...res.data()}))
         .catch((error)=>console.log(error))
